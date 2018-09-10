@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">
+        btn
+    </button>
+</body>
+</html>
+<script>
+let btn = document.querySelector('#btn')
+
+function setTime(t) {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            res('时间到了')
+        }, t)
+    })
+}
+function clickLis() {
+    return new Promise((res, rej) => {
+        btn.addEventListener('click', function() {
+            rej('取消')
+        })
+    })
+}
+
+Promise.race([setTime(5000), clickLis()])
+.then(res => {
+    alert(`success: ${res}`)
+})
+.catch(e => {
+    alert(e)
+})
+</script>
